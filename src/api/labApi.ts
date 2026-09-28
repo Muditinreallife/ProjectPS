@@ -1,26 +1,17 @@
 /**
- * API client for the cybersecurity training lab backend.
- * Uses a configurable production API URL via environment variables or runtime configuration.
+ * API client for the local cybersecurity training lab backend.
+ * Uses Vite environment variables or defaults to localhost.
  */
 
 let customApiBase: string | null = null;
 
 /**
  * Dynamically resolves the API base URL.
- * Priority: Runtime override -> Environment variables -> Production fallback URL
+ * Priority: Runtime override -> Vite env (VITE_API_URL) -> Global env fallback -> Localhost
  */
 export function getApiBaseUrl(): string {
   if (customApiBase) {
     return customApiBase;
-  }
-
-  // Next.js / Node / Create-React-App environment variable support
-  if (typeof process !== "undefined" && process.env) {
-    const envUrl =
-      process.env.NEXT_PUBLIC_API_URL ||
-      process.env.REACT_APP_API_URL ||
-      process.env.API_BASE_URL;
-    if (envUrl) return envUrl;
   }
 
   // Vite environment variable support
@@ -32,8 +23,28 @@ export function getApiBaseUrl(): string {
     // Ignore environments where import.meta is unsupported
   }
 
-  // Production fallback URL (adjust domain to match your deployment)
-  return "https://api.training.yourdomain.com/api";
+  // Safe global environment check without triggering TS2591
+  try {
+    const globalProcess = (
+      globalThis as unknown as {
+        process?: { env?: Record<string, string | undefined> };
+      }
+    )?.process;
+
+    if (globalProcess?.env) {
+      const envUrl =
+        globalProcess.env.VITE_API_URL ||
+        globalProcess.env.NEXT_PUBLIC_API_URL ||
+        globalProcess.env.REACT_APP_API_URL ||
+        globalProcess.env.API_BASE_URL;
+      if (envUrl) return envUrl;
+    }
+  } catch {
+    // Ignore environments where globalThis or process is unavailable
+  }
+
+  // Default fallback URL
+  return "http://127.0.0.1:5000/api";
 }
 
 /**
@@ -95,7 +106,7 @@ async function request<T>(
   } catch {
     throw new Error(
       `Cannot reach the training backend at ${url}. ` +
-      "Verify the backend is running and the API URL is reachable."
+      "Start the lab with start.bat and keep the backend window open."
     );
   }
 
