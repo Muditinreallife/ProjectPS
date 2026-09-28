@@ -1,0 +1,14 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="igFaviconGrad" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f09433"/>
+      <stop offset="25%" stop-color="#e6683c"/>
+      <stop offset="50%" stop-color="#dc2743"/>
+      <stop offset="75%" stop-color="#cc2366"/>
+      <stop offset="100%" stop-color="#bc1888"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="42" height="42" rx="12" stroke="url(#igFaviconGrad)" stroke-width="4"/>
+  <circle cx="24" cy="24" r="10" stroke="url(#igFaviconGrad)" stroke-width="4"/>
+  <circle cx="35" cy="13" r="2.5" fill="url(#igFaviconGrad)"/>
+</svg>
