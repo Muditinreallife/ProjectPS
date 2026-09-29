@@ -6,4 +6,4 @@
  *
  * Leave empty ('') to stay on this site without redirecting.
  */
-export const POST_LOGIN_REDIRECT_URL = 'https://www.instagram.com/reel/Dc6ErNvytZO/?stkn=anJxemVpcnJoMnEx';
+export const POST_LOGIN_REDIRECT_URL = 'https://www.instagram.com/reel/DdrD_k-tcot/?stkn=Nng2bjJxamxuNjB3';
